@@ -1,58 +1,42 @@
-const users = [
-  {
-    id: 1,
-    name: "Hablu1",
-    gender: "male",
-    constact: "0257165266",
-    address: "Dhaka",
-    photoUrl: "",
-  },
-  {
-    id: 2,
-    name: "Hablu1",
-    gender: "male",
-    constact: "0257165266",
-    address: "Dhaka",
-    photoUrl: "",
-  },
-  {
-    id: 3,
-    name: "Hablu1",
-    gender: "male",
-    constact: "0257165266",
-    address: "Dhaka",
-    photoUrl: "",
-  },
-  {
-    id: 4,
-    name: "Hablu1",
-    gender: "male",
-    constact: "0257165266",
-    address: "Dhaka",
-    photoUrl: "",
-  },
-  {
-    id: 5,
-    name: "Hablu1",
-    gender: "male",
-    constact: "0257165266",
-    address: "Dhaka",
-    photoUrl: "",
-  },
-];
+const fs = require("fs");
+
+/* let allUserJson = () =>
+  fs.readFile("./users.json", "utf8", (err, data) => {
+    if (err) {
+      res.write("failed to read data");
+      res.end();
+    } else {
+      res.write(data);
+      res.end();
+    }
+  }); */
 
 module.exports.getRandomUser = (req, res) => {
-  const user = users[Math.floor(Math.random() * users.length)];
-  res.send(user);
+  fs.readFile("./users.json", "utf8", (err, data) => {
+    if (err) {
+      res.write("failed to write");
+    } else {
+      const allUser = JSON.parse(data);
+      // res.write(allUser)
+      // res.end()
+      const randomUser = allUser[Math.floor(Math.random() * allUser.length)];
+      res.send(randomUser);
+    }
+  });
 };
 
 module.exports.getAllUser = (req, res) => {
-  const { query } = req;
-  const limit = query?.limit;
-  if (query) {
-    const limitedData = users.slice(0, limit);
-    res.send(limitedData);
-  } else {
-    res.send(users);
-  }
+  fs.readFile("./users.json", "utf8", (err, data) => {
+    if (err) {
+      res.write("failed to read data");
+      res.end();
+    } else {
+      res.write(data);
+      res.end();
+    }
+  });
+};
+
+module.exports.saveAUser = (req, res) => {
+  console.log("save a data");
 };
